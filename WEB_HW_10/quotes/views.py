@@ -1,7 +1,8 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DetailView
 
-from .forms import TagForm
+from .forms import TagForm, AuthorForm, QuoteForm
 from .models import Author, Tag, Quote
 from django.core.paginator import Paginator
 
@@ -16,8 +17,30 @@ def index(request, page=1):
     return render(request, template_name="quotes/index.html", context={"quotes": quote_on_page})
 
 
-class CreateTagView(CreateView):
+class CreateTagView(LoginRequiredMixin, CreateView):
+    login_url = "login"
     model = Tag
     template_name = "quotes/createTag.html"
     form_class = TagForm
     success_url = "createTag"
+
+
+class CreateAuthorView(LoginRequiredMixin, CreateView):
+    login_url = "login"
+    model = Author
+    template_name = "quotes/createAuthor.html"
+    form_class = AuthorForm
+    success_url = "createAuthor"
+
+
+class CreateQuoteView(LoginRequiredMixin, CreateView):
+    login_url = "login"
+    model = Quote
+    template_name = "quotes/createQuote.html"
+    form_class = QuoteForm
+    success_url = "createQuote"
+
+
+def author_view(request, fullname):
+    author = Author.objects.get(fullname=fullname)
+    return render(request, template_name="quotes/authorInfo.html", context={"author": author})

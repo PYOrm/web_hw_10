@@ -22,5 +22,8 @@ app_name = "quotes"
 urlpatterns = [
     path('', views.index, name="index"),
     path('<int:page>', views.index, name="index_paginate"),
+    path('author/<str:fullname>', views.author_view, name="author_info"),
     path('createTag', views.CreateTagView.as_view(), name="createTag"),
+    path('createAuthor', views.CreateAuthorView.as_view(), name="createAuthor"),
+    path('createQuote', views.CreateQuoteView.as_view(), name="createQuote"),
 ]

@@ -88,3 +88,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
     color: #333333;
     cursor: not-allowed;
 }
+
+.btn-primary{
+    border-radius: 10px;
+}

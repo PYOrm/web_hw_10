@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load extract %}
 {% block title %}Quotes{% endblock %}
 {% block content %}
 <div class="row">
@@ -9,13 +8,13 @@
         <span class="text" itemprop="text">
             {{quote.quote}}
         </span>
-        <span>by <small class="author" itemprop="author">{{ quote.author|author }}</small>
-        <a href="/author/{{quote.author|author}}">(about)</a>
+        <span>by <small class="author" itemprop="author">{{ quote.author.fullname }}</small>
+        <a href="/author/{{quote.author.fullname}}">(about)</a>
         </span>
         <div class="tags">
             Tags:
-            {% for tag in quote.tags %}
-            <a class="tag" href="/tag/{{tag}}">{{tag}}</a>
+            {% for tag in quote.tags.all %}
+            <a class="tag" href="#">{{tag.name}}</a>
             {% endfor %}
 
 
