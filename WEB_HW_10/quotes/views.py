@@ -41,6 +41,14 @@ class CreateQuoteView(LoginRequiredMixin, CreateView):
     success_url = "createQuote"
 
 
-def author_view(request, fullname):
-    author = Author.objects.get(fullname=fullname)
-    return render(request, template_name="quotes/authorInfo.html", context={"author": author})
+# def author_view(request, fullname):
+#     author = Author.objects.get(fullname=fullname)
+#     return render(request, template_name="quotes/authorInfo.html", context={"author": author})
+
+class AuthorView(DetailView):
+    model = Author
+    template_name = "quotes/authorInfo.html"
+    context_object_name = "author"
+
+    def get_object(self):
+        return Author.objects.get(fullname=self.kwargs['fullname'])
